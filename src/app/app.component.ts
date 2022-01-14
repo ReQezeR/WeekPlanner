@@ -5,6 +5,9 @@ import html2canvas from 'html2canvas';
 import { MatTableDataSource } from '@angular/material/table';
 
 import { SocialAuthService, GoogleLoginProvider, SocialUser } from 'angularx-social-login'
+import { GoogleCalendarService } from './services/google-calendar.service';
+import { CalendarList } from './models/CalendarList';
+import { AuthService } from './services/auth.service';
 
 const USERS = [
   {
@@ -50,33 +53,49 @@ const USERS = [
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  user: SocialUser|null;
   displayedColumns: string[] = ['id', 'name', 'email', 'phone'];
   dataSource = USERS;
 
   title = 'WeekPlanner';
 
   //==============================
-  socialUser!: SocialUser;
   isLoggedin!: boolean;
   //==============================
+
+  data: CalendarList = new CalendarList({});
+
   constructor(
-    private socialAuthService: SocialAuthService
-  ){}
+    private googleService: GoogleCalendarService,
+    private authService: AuthService
+  ){
+    this.user = null;
+  }
 
   ngOnInit() {
-    this.socialAuthService.authState.subscribe((user) => {
-      this.socialUser = user;
-      this.isLoggedin = (user != null);
-      console.log(this.socialUser);
+    this.authService.userObservable.subscribe(user => {
+      this.user = user;
     });
   }
 
-  loginWithGoogle(): void {
-    this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
+  printUser(){
+    console.log(this.user);
   }
 
-  logOut(): void {
-    this.socialAuthService.signOut();
+  getData(){
+    this.googleService.fetchCalendars().subscribe(
+      data => {
+        this.data = new CalendarList(data);
+        console.log(new CalendarList(data));
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+
+  toJSON(data: any){
+    return JSON.stringify(data);
   }
 
   public openPDF():void {

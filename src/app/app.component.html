@@ -1,41 +1,48 @@
-<div>
-  <button type="button" (click)="loginWithGoogle()" class="btn btn-danger">Login with Google</button>
-</div>
-<button type="button" (click)="logOut()" class="btn btn-primary">Log Out</button>
+<header>
+  <app-header></app-header>
+</header>
 
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8" id="htmlData">
+<body>
+  <button type="button" (click)="getData()" class="btn btn-primary">Get data</button>
 
-    <!--- Note that these columns can be defined in any order.
-          The actual rendered columns are set as a property on the row definition" -->
-  
-    <!-- Position Column -->
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef> No. </th>
-      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-    </ng-container>
-  
-    <!-- Name Column -->
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef> Name </th>
-      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-    </ng-container>
-  
-    <!-- Weight Column -->
-    <ng-container matColumnDef="email">
-      <th mat-header-cell *matHeaderCellDef> Email </th>
-      <td mat-cell *matCellDef="let element"> {{element.email}} </td>
-    </ng-container>
-  
-    <!-- Symbol Column -->
-    <ng-container matColumnDef="phone">
-      <th mat-header-cell *matHeaderCellDef> Phone </th>
-      <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
-    </ng-container>
-  
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
+  <button type="button" (click)="printUser()" class="btn btn-primary">print User</button>
 
-<div class="col-md-4 text-right">
-    <button class="btn btn-success btn-block" (click)="openPDF()">Download PDF</button>
-</div>
+  <div *ngIf="user!=null">
+    <p>Hello, {{user.name}}!</p>
+    <p>Your email: {{user.email}}</p>
+  </div>
+
+  <p>{{toJSON(data)}}</p>
+
+
+  <app-event-table id="htmlData"></app-event-table>
+
+  <!-- <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" id="htmlData">
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> No. </th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef> Email </th>
+        <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+      </ng-container>
+    
+      <ng-container matColumnDef="phone">
+        <th mat-header-cell *matHeaderCellDef> Phone </th>
+        <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
+      </ng-container>
+    
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table> -->
+
+  <div class="col-md-4 text-right">
+      <button class="btn btn-success btn-block" (click)="openPDF()">Download PDF</button>
+  </div>
+</body>
