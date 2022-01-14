@@ -1,0 +1,66 @@
+<div class="form-wrapper">
+    <h2 mat-dialog-title>Dodaj wydarzenie</h2>
+    <mat-dialog-content>
+        <form 
+          class="event-form"
+          [formGroup]="form"
+          id="ngForm"
+        >
+          <table class="form-full-width" cellspacing="0"><tr>
+              <td><mat-form-field class="form-full-width" appearance="fill">
+                <mat-label>Nazwa</mat-label>
+                <input 
+                  matInput 
+                  type="text"
+                  class="form-control"
+                  name="summary"
+                  formControlName="summary"
+                  >
+                <button *ngIf="event?.summary" matSuffix mat-icon-button aria-label="Clear" (click)="event.summary=''">
+                  <mat-icon>close</mat-icon>
+                </button>
+              </mat-form-field></td>
+              <td><mat-form-field class="form-full-width" appearance="fill">
+                <mat-label>Start</mat-label>
+                <input 
+                  matInput 
+                  type="time"
+                  class="form-control"
+                  name="start"
+                  formControlName="start"
+                >
+              </mat-form-field></td>
+              <td class="end"><mat-form-field class="form-full-width" appearance="fill">
+                <mat-label>Koniec</mat-label>
+                <input 
+                  matInput 
+                  type="time"
+                  class="form-control"
+                  name="end"
+                  formControlName="end"
+                >
+              </mat-form-field></td>
+            </tr>
+          </table>
+          
+          <mat-form-field class="form-full-width" appearance="fill">
+            <mat-label>Opis</mat-label>
+            <textarea 
+              matInput 
+              placeholder="Np. Zrób zakupy"
+              name="description"
+              id="description"
+              formControlName="description"
+              rows="5"
+              ></textarea>
+          </mat-form-field>
+
+        </form>
+    </mat-dialog-content>
+
+    <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Anuluj</button>
+    <button mat-button [mat-dialog-close]="eventUpdated" form="ngForm" [disabled]="!isEventDataUpdated||!isValid">Dodaj</button>
+    </mat-dialog-actions>
+</div>
+
