@@ -1,0 +1,13 @@
+{
+  "/google-api": {
+    "target": "https://www.googleapis.com/calendar/v3",
+    "secure": true,
+    "rejectUnauthorzied": true,
+    "withCredentials": true,
+    "strictSSL": true,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/google-api": ""
+    }
+  }
+}
