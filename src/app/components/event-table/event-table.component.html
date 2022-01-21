@@ -1,128 +1,30 @@
 <mat-card>
     <div class="table-wrapper">
-        <div class="example-container">
+        <div class="example-container" *ngFor="let dayData of weekData">
             <div class="example-header">
-                <h2>Poniedziałek</h2>
-                <button mat-icon-button class="example-icon" aria-label="Add monday event" (click)="openEventFormDialog('monday')">
-                    <mat-icon>add</mat-icon>
+                <h2>{{dayData.name}}</h2>
+                <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                    <mat-icon>more_horiz</mat-icon>
                 </button>
+                <mat-menu #menu="matMenu" xPosition="before" aria-label="Add {{dayData.id}} event">
+                    <button mat-menu-item (click)="openEventFormDialog(dayData.id)">
+                        <mat-icon>add</mat-icon>
+                        <span>Dodaj wydarzenie</span>
+                    </button>
+                    <button mat-menu-item (click)="openGoogleCalendarEventFormDialog(dayData.id)">
+                        <mat-icon>perm_contact_calendar</mat-icon>
+                        <span>Google Calendar</span>
+                    </button>
+                </mat-menu>
             </div>
             <div
             cdkDropList
-            #mondayList="cdkDropList"
-            [cdkDropListData]="weekData['monday']"
-            [cdkDropListConnectedTo]="[tuesdayList,wednesdayList,thursdayList,fridayList,saturdayList,sundayList]"
+            id="{{dayData.id}}"
+            [cdkDropListData]="dayData.events"
+            [cdkDropListConnectedTo]="connectedTo"
             class="example-list"
             (cdkDropListDropped)="drop($event)">
-            <div class="example-box" *ngFor="let item of weekData['monday']" cdkDrag>{{item.summary}}</div>
-            </div>
-        </div>
-        
-        <div class="example-container">
-            <div class="example-header">
-                <h2>Wtorek</h2>
-                <button mat-icon-button class="example-icon" aria-label="Add tuesday event" (click)="openEventFormDialog('tuesday')">
-                    <mat-icon>add</mat-icon>
-                </button>
-            </div>
-            <div
-            cdkDropList
-            #tuesdayList="cdkDropList"
-            [cdkDropListData]="weekData['tuesday']"
-            [cdkDropListConnectedTo]="[mondayList,wednesdayList,thursdayList,fridayList,saturdayList,sundayList]"
-            class="example-list"
-            (cdkDropListDropped)="drop($event)">
-            <div class="example-box" *ngFor="let item of weekData['tuesday']" cdkDrag>{{item.summary}}</div>
-            </div>
-        </div>
-        
-        <div class="example-container">
-            <div class="example-header">
-                <h2>Środa</h2>
-                <button mat-icon-button class="example-icon" aria-label="Add wednesday event" (click)="openEventFormDialog('wednesday')">
-                    <mat-icon>add</mat-icon>
-                </button>
-            </div>
-            <div
-            cdkDropList
-            #wednesdayList="cdkDropList"
-            [cdkDropListData]="weekData['wednesday']"
-            [cdkDropListConnectedTo]="[mondayList,tuesdayList,thursdayList,fridayList,saturdayList,sundayList]"
-            class="example-list"
-            (cdkDropListDropped)="drop($event)">
-            <div class="example-box" *ngFor="let item of weekData['wednesday']" cdkDrag>{{item.summary}}</div>
-            </div>
-        </div>
-        
-        <div class="example-container">
-            <div class="example-header">
-                <h2>Czwartek</h2>
-                <button mat-icon-button class="example-icon" aria-label="Add thursday event" (click)="openEventFormDialog('thursday')">
-                    <mat-icon>add</mat-icon>
-                </button>
-            </div>
-            <div
-            cdkDropList
-            #thursdayList="cdkDropList"
-            [cdkDropListData]="weekData['thursday']"
-            [cdkDropListConnectedTo]="[mondayList,tuesdayList,wednesdayList,fridayList,saturdayList,sundayList]"
-            class="example-list"
-            (cdkDropListDropped)="drop($event)">
-            <div class="example-box" *ngFor="let item of weekData['thursday']" cdkDrag>{{item.summary}}</div>
-            </div>
-        </div>
-        
-        <div class="example-container">
-            <div class="example-header">
-                <h2>Piątek</h2>
-                <button mat-icon-button class="example-icon" aria-label="Add friday event" (click)="openEventFormDialog('friday')">
-                    <mat-icon>add</mat-icon>
-                </button>
-            </div>
-            <div
-            cdkDropList
-            #fridayList="cdkDropList"
-            [cdkDropListData]="weekData['friday']"
-            [cdkDropListConnectedTo]="[mondayList,tuesdayList,wednesdayList,thursdayList,saturdayList,sundayList]"
-            class="example-list"
-            (cdkDropListDropped)="drop($event)">
-            <div class="example-box" *ngFor="let item of weekData['friday']" cdkDrag>{{item.summary}}</div>
-            </div>
-        </div>
-        
-        <div class="example-container">
-            <div class="example-header">
-                <h2>Sobota</h2>
-                <button mat-icon-button class="example-icon" aria-label="Add saturday event" (click)="openEventFormDialog('saturday')">
-                    <mat-icon>add</mat-icon>
-                </button>
-            </div>
-            <div
-            cdkDropList
-            #saturdayList="cdkDropList"
-            [cdkDropListData]="weekData['saturday']"
-            [cdkDropListConnectedTo]="[mondayList,tuesdayList,wednesdayList,thursdayList,fridayList,sundayList]"
-            class="example-list"
-            (cdkDropListDropped)="drop($event)">
-            <div class="example-box" *ngFor="let item of weekData['saturday']" cdkDrag>{{item.summary}}</div>
-            </div>
-        </div>
-        
-        <div class="example-container-last">
-            <div class="example-header">
-                <h2>Niedziela</h2>
-                <button mat-icon-button class="example-icon" aria-label="Add sunday event" (click)="openEventFormDialog('sunday')">
-                    <mat-icon>add</mat-icon>
-                </button>
-            </div>
-            <div
-            cdkDropList
-            #sundayList="cdkDropList"
-            [cdkDropListData]="weekData['sunday']"
-            [cdkDropListConnectedTo]="[mondayList,tuesdayList,wednesdayList,thursdayList,fridayList,saturdayList]"
-            class="example-list"
-            (cdkDropListDropped)="drop($event)">
-            <div class="example-box" *ngFor="let item of weekData['sunday']" cdkDrag>{{item.summary}}</div>
+                <app-event-card *ngFor="let item of dayData.events" cdkDrag [event]=item [day]=dayData.id></app-event-card>
             </div>
         </div>
     </div>

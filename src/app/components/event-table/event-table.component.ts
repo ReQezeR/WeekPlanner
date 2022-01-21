@@ -13,11 +13,12 @@ import { EventTableService } from '@app/services/event-table.service';
 })
 export class EventTableComponent implements OnInit {
   weekData: any;
-
+  connectedTo = ["monday","tuesday","wednesday","thursday","friday","saturday","sunday"];
+ 
+ 
   constructor(private eventTableService: EventTableService, public dialog: MatDialog) { 
-    this.eventTableService.dataObservable.subscribe(data => {
-      this.weekData = data;
-      console.log(this.weekData);
+    this.eventTableService.dataObservable.subscribe(observableData => {
+      this.weekData = observableData;
     });
   }
 
@@ -29,6 +30,7 @@ export class EventTableComponent implements OnInit {
   }
 
   drop(event: CdkDragDrop<any[]>) {
+    console.log(event);
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
@@ -42,6 +44,10 @@ export class EventTableComponent implements OnInit {
     this.eventTableService.updateEvents(this.weekData);
   }
 
+  openGoogleCalendarEventFormDialog(day: string){
+    console.log("open google calendar: "+day)
+  }
+
   openEventFormDialog(day: string) {
     const dialogRef = this.dialog.open(AddEventComponent);
 
@@ -52,5 +58,4 @@ export class EventTableComponent implements OnInit {
       }
     });
   }
-
 }
