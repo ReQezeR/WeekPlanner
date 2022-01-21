@@ -1,4 +1,5 @@
 export enum Day {
+    none = "",
     monday = "monday",
     tuesday = "tuesday",
     wednesday = "wednesday",
