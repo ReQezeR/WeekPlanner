@@ -10,6 +10,7 @@ import { filter } from 'rxjs/operators';
 export class EventTableService {
   private dataSubject: BehaviorSubject<any>;
   public dataObservable: Observable<any>;
+  indexes: any = JSON.parse('{"monday": 0,"tuesday": 1,"wednesday": 2,"thursday": 3,"friday":4,"saturday": 5,"sunday": 6}');
 
   constructor() {
     let localData = localStorage.getItem('calendar-data');
@@ -17,51 +18,59 @@ export class EventTableService {
       this.dataSubject = new BehaviorSubject<any>(JSON.parse(localData));
     }
     else{
-      this.dataSubject = new BehaviorSubject<any>({
-        "monday": [] as any,
-        "tuesday": [] as any,
-        "wednesday": [] as any,
-        "thursday": [] as any,
-        "friday": [] as any,
-        "saturday": [] as any,
-        "sunday": [] as any,
-      });
+      this.dataSubject = new BehaviorSubject<any>([
+        {id: "monday", name: "Poniedziałek", events: [] as any},
+        {id: "tuesday", name: "Wtorek", events: [] as any},
+        {id: "wednesday", name: "Środa", events: [] as any},
+        {id: "thursday", name: "Czwartek", events: [] as any},
+        {id: "friday", name: "Piątek", events: [] as any},
+        {id: "saturday", name: "Sobota", events: [] as any},
+        {id: "sunday", name: "Niedziela", events: [] as any}
+      ]);
     }
     
     this.dataObservable = this.dataSubject.asObservable();
   }
 
   addEvent(day: Day, event: CalendarEvent) {
-    this.dataSubject.getValue()[day].push(event)
+    event.id = Date.now().toString();
+    this.dataSubject.getValue()[this.indexes[day]].events.push(event)
     this.updateEvents(this.dataSubject.getValue());
   }
 
   addEvents(day: Day, events: CalendarEvent) {
     for(let event in events){
-      this.dataSubject.getValue()[day].push(event);
+      this.dataSubject.getValue()[this.indexes[day]].events.push(event);
     }
     this.updateEvents(this.dataSubject.getValue());
   }
 
+  editEvent(day: Day, event: CalendarEvent){
+    console.log(event);
+    let index = this.dataSubject.getValue()[this.indexes[day]].events.findIndex((element: CalendarEvent)=> element.id === event.id)
+    this.dataSubject.getValue()[this.indexes[day]].events[index] = event;
+    this.updateEvents(this.dataSubject.getValue());
+  }
+
   removeEvent(day: Day, event: CalendarEvent) {
-    // this.weekData[day].filter((x:CalendarEvent) => event.id != x.id);//TODO: checkme
-    this.dataSubject.next(this.dataSubject.getValue()[day].filter((x:CalendarEvent) => event.id != x.id));
+    this.dataSubject.getValue()[this.indexes[day]].events = this.dataSubject.getValue()[this.indexes[day]].events.filter((x:CalendarEvent) => event.summary != x.summary)
+    this.updateEvents(this.dataSubject.getValue());
   }
 
   getEvents(day: Day) {
-    return this.dataSubject.getValue()[day];
+    return this.dataSubject.getValue()[this.indexes[day]].events;
   }
 
   resetEvents(){
-    this.updateEvents({
-      "monday": [] as any,
-      "tuesday": [] as any,
-      "wednesday": [] as any,
-      "thursday": [] as any,
-      "friday": [] as any,
-      "saturday": [] as any,
-      "sunday": [] as any,
-    });
+    this.updateEvents([
+      {id: "monday", name: "Poniedziałek", events: [] as any},
+      {id: "tuesday", name: "Wtorek", events: [] as any},
+      {id: "wednesday", name: "Środa", events: [] as any},
+      {id: "thursday", name: "Czwartek", events: [] as any},
+      {id: "friday", name: "Piątek", events: [] as any},
+      {id: "saturday", name: "Sobota", events: [] as any},
+      {id: "sunday", name: "Niedziela", events: [] as any}
+    ]);
   }
 
   updateEvents(data: any){
