@@ -1,0 +1,25 @@
+.form-wrapper{
+    width: 70rem;
+}
+
+:host {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+  
+.event-form {
+    width: 100%;
+}
+
+.form-full-width {
+    width: 100%;
+}
+
+td {
+    padding-right: 8px;
+}
+
+td.end{
+    padding-right: 0;
+}
