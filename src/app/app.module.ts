@@ -14,6 +14,8 @@ import {MatCardModule} from '@angular/material/card';
 import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {DragDropModule} from '@angular/cdk/drag-drop';
@@ -25,6 +27,8 @@ import { HeaderComponent } from './components/header/header.component';
 import { HttpClientModule } from '@angular/common/http';
 import { EventTableComponent } from './components/event-table/event-table.component';
 import { AddEventComponent } from './forms/add-event/add-event.component';
+import { EventCardComponent } from './components/event-card/event-card.component';
+import { EditEventComponent } from './forms/edit-event/edit-event.component';
 
 
 const googleLoginOptions = {
@@ -38,6 +42,8 @@ const googleLoginOptions = {
     HeaderComponent,
     EventTableComponent,
     AddEventComponent,
+    EventCardComponent,
+    EditEventComponent,
     
   ],
   imports: [
@@ -54,6 +60,8 @@ const googleLoginOptions = {
     MatSelectModule,
     MatInputModule,
     MatFormFieldModule,
+    MatMenuModule,
+    MatGridListModule,
 
     FormsModule,
     ReactiveFormsModule,
