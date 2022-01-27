@@ -1,0 +1,10 @@
+<div class="table-wrapper">
+    <div class="example-container" *ngFor="let dayData of weekData">
+        <div class="example-header">
+            {{dayData.name}}
+        </div>
+        <div class="example-list">
+            <app-event-card class="example-box" *ngFor="let item of dayData.events" [isPreview]=true [event]=item [day]=dayData.id></app-event-card>
+        </div>
+    </div>
+</div>
