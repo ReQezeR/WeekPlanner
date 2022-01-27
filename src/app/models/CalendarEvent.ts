@@ -1,4 +1,5 @@
 import { Duration } from "./Duration";
+import { EventIcon } from "./EventIcon";
 
 export class CalendarEvent {
     id: string;
@@ -9,6 +10,8 @@ export class CalendarEvent {
     start: Duration;
     end: Duration;
     isGoogle: boolean;
+
+    icon: EventIcon;
   
     constructor(object: any, isGoogle?: boolean) {
         this.id = object.id;
@@ -19,5 +22,6 @@ export class CalendarEvent {
         this.start = new Duration(object.start);
         this.end = new Duration(object.end);
         this.isGoogle = isGoogle||false;
+        this.icon = new EventIcon(object.icon);
     }
 }
