@@ -65,6 +65,8 @@ export class AppComponent {
 
   data: CalendarList = new CalendarList({});
 
+  isPreview = true;
+
   constructor(
     private googleService: GoogleCalendarService,
     private authService: AuthService
@@ -98,13 +100,28 @@ export class AppComponent {
     return JSON.stringify(data);
   }
 
+  displayPreview(){
+    this.isPreview = !this.isPreview
+  }
+
   public openPDF():void {
-    let DATA = document.getElementById('htmlData');
+
+    let DATA = document.getElementById('htmlData2');
+    // DATA!.style.display ='block';
         
-    html2canvas(DATA!).then(canvas => {
+    html2canvas(DATA!, {
+      windowWidth: 1754,
+      windowHeight: 1240,
+      height: 1240
+    }).then(canvas => {
+
+        // canvas.style.display = 'block';
+
         
-        let fileWidth = 208;
-        let fileHeight = canvas.height * fileWidth / canvas.width;
+        let fileWidth = 297;
+        let fileHeight = 210;
+        // let fileHeight = canvas.height * fileWidth / canvas.width;
+        console.log(fileWidth+" fw; "+fileHeight+" fh;");
         
         const FILEURI = canvas.toDataURL('image/png')
         let PDF = new jsPDF('l', 'mm', 'a4');
@@ -112,8 +129,10 @@ export class AppComponent {
         var width = PDF.internal.pageSize.getWidth();
         var height = PDF.internal.pageSize.getHeight();
 
-        let position = 0;
-        PDF.addImage(FILEURI, 'PNG', 0, position, width, height)
+        console.log(width+" w; "+height+" h;");
+
+        let position = 25;
+        PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight)
         
         PDF.save('angular-demo.pdf');
     });     

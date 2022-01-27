@@ -29,6 +29,7 @@ import { EventTableComponent } from './components/event-table/event-table.compon
 import { AddEventComponent } from './forms/add-event/add-event.component';
 import { EventCardComponent } from './components/event-card/event-card.component';
 import { EditEventComponent } from './forms/edit-event/edit-event.component';
+import { PreviewEventTableComponent } from './components/preview-event-table/preview-event-table.component';
 
 
 const googleLoginOptions = {
@@ -44,6 +45,7 @@ const googleLoginOptions = {
     AddEventComponent,
     EventCardComponent,
     EditEventComponent,
+    PreviewEventTableComponent,
     
   ],
   imports: [

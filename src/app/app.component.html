@@ -3,7 +3,7 @@
 </header>
 
 <body>
-  <button type="button" (click)="getData()" class="btn btn-primary">Get data</button>
+  <!-- <button type="button" (click)="getData()" class="btn btn-primary">Get data</button>
 
   <button type="button" (click)="printUser()" class="btn btn-primary">print User</button>
 
@@ -12,37 +12,18 @@
     <p>Your email: {{user.email}}</p>
   </div>
 
-  <p>{{toJSON(data)}}</p>
+  <p>{{toJSON(data)}}</p> -->
 
 
-  <app-event-table id="htmlData"></app-event-table>
+  <app-event-table id="htmlData" *ngIf="!isPreview"></app-event-table>
 
-  <!-- <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" id="htmlData">
-      <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef> No. </th>
-        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef> Name </th>
-        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="email">
-        <th mat-header-cell *matHeaderCellDef> Email </th>
-        <td mat-cell *matCellDef="let element"> {{element.email}} </td>
-      </ng-container>
-    
-      <ng-container matColumnDef="phone">
-        <th mat-header-cell *matHeaderCellDef> Phone </th>
-        <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
-      </ng-container>
-    
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table> -->
+  <app-preview-event-table id="htmlData2" *ngIf="isPreview"></app-preview-event-table>
 
   <div class="col-md-4 text-right">
       <button class="btn btn-success btn-block" (click)="openPDF()">Download PDF</button>
   </div>
+
+  <div class="col-md-4 text-right">
+    <button class="btn btn-success btn-block" (click)="displayPreview()">display Preview PDF</button>
+</div>
 </body>
