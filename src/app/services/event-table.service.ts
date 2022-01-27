@@ -15,7 +15,15 @@ export class EventTableService {
   constructor() {
     let localData = localStorage.getItem('calendar-data');
     if(localData!=null){
-      this.dataSubject = new BehaviorSubject<any>(JSON.parse(localData));
+      let data = JSON.parse(localData)
+      for(let d of data){
+        let events = [];
+        for(let e of d.events){
+          events.push(new CalendarEvent(e))
+        }
+        d.events = events;
+      }
+      this.dataSubject = new BehaviorSubject<any>(data);
     }
     else{
       this.dataSubject = new BehaviorSubject<any>([
