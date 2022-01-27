@@ -24,7 +24,7 @@
             [cdkDropListConnectedTo]="connectedTo"
             class="example-list"
             (cdkDropListDropped)="drop($event)">
-                <app-event-card *ngFor="let item of dayData.events" cdkDrag [event]=item [day]=dayData.id></app-event-card>
+                <app-event-card class="example-box" *ngFor="let item of dayData.events" cdkDrag [event]=item [day]=dayData.id></app-event-card>
             </div>
         </div>
     </div>
