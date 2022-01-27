@@ -11,16 +11,19 @@ import { EventTableService } from '@app/services/event-table.service';
   styleUrls: ['./event-card.component.scss']
 })
 export class EventCardComponent implements OnInit {
-  @Input() event: CalendarEvent = new CalendarEvent("");
+  @Input() event: CalendarEvent;// = new CalendarEvent("");
   @Input() day: string = Day.none;
+  @Input() isPreview: boolean = false;
 
   constructor(private eventTableService: EventTableService, public dialog: MatDialog) { 
+    this.event = new CalendarEvent({});
     if(!this.event){
-      this.event = new CalendarEvent("");
+      this.event = new CalendarEvent({});
     }
   }
 
   ngOnInit(): void {
+    // console.log(this.event);
   }
 
   editEvent(){

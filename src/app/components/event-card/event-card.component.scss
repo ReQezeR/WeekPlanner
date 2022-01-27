@@ -4,8 +4,19 @@
 }
 
 mat-card {
-    margin-bottom: 1px;
-    min-width: 220px;
+  // display: flex;
+  flex-grow: 1;
+  min-width: 245px;
+  // border: solid gray 1px;
+  border-left: solid gray 5px;
+  &.preview{
+    padding: 1rem;
+    padding-right: 0.2rem;
+    padding-left: 0;
+    box-shadow: none;
+    border: solid gray 1px;
+    border-left: solid gray 5px;
+  }
 }
   
   
