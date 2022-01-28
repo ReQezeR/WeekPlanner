@@ -1,0 +1,28 @@
+.form-wrapper{
+    max-width: 70rem;
+}
+
+.form-header{
+    height: 60px;
+    padding: 1rem;
+    border: solid 1px lightgray;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 20px;
+}
+
+.form-content{
+    min-height: 200px;
+    width: 70rem;
+
+    &.user-none{
+        width: auto;
+        display: flex;
+        flex-grow: 1;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+    }
+}

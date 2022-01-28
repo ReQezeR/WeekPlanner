@@ -1,0 +1,74 @@
+<div class="form-wrapper">
+    <div *ngIf="user">
+        <div class="form-header">
+            <!-- {{user.firstName}} -->
+            <div>Dodaj wydarzenie z kalendarza Google</div>
+        </div>
+        
+        <div class="form-content">
+            <mat-stepper [linear]="isLinear" #stepper>
+                <mat-step [stepControl]="firstFormGroup">
+                  <form [formGroup]="firstFormGroup">
+                    <ng-template matStepLabel>Wybierz kanendarz</ng-template>
+
+                    <mat-form-field appearance="fill">
+                        <mat-label>Kalendarz</mat-label>
+                        <mat-select formControlName="pickCalendar">
+                            <mat-option *ngFor="let item of data.items" [value]="item.id">
+                                {{item.summary}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <div>
+                      <button mat-button [disabled]="pickedCalendarId == null" matStepperNext>Następny</button>
+                    </div>
+                  </form>
+                </mat-step>
+
+                <mat-step [stepControl]="secondFormGroup" label="Wybierz wydarzenie">
+                  <form [formGroup]="secondFormGroup">
+
+                    <mat-form-field appearance="fill">
+                        <mat-label>Kalendarz</mat-label>
+                        <mat-select formControlName="pickEvent">
+                            <mat-option *ngFor="let event of events" [value]="event">
+                                {{event.summary}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <div>
+                      <button mat-button matStepperPrevious>Poprzedni</button>
+                      <button mat-button [disabled]="pickedEvent == null" matStepperNext (click)="isFinished=true">Następny</button>
+                    </div>
+                  </form>
+                </mat-step>
+
+                <mat-step>
+                  <ng-template matStepLabel>Zatwierdź dane</ng-template>
+                  <p>Wybrane wydarzenie: {{pickedEvent?.summary}}</p>
+                  <div>
+                    <button mat-button matStepperPrevious>Poprzedni</button>
+                    <button mat-button (click)="stepper.reset()">Zresetuj formularz</button>
+                  </div>
+                </mat-step>
+            </mat-stepper>
+        </div>
+    </div>
+    <div *ngIf="!user">
+        <div class="form-header">
+            <div>Użytkownik nie zalogowany!</div>
+        </div>
+        <div class="form-content" [class.user-none]="!user">
+            <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon" *ngIf="user==null" (click)="login()">
+                <mat-icon>login</mat-icon>
+            </button>
+        </div>
+    </div>
+
+    <mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close>Anuluj</button>
+        <button mat-button [mat-dialog-close]="pickedEvent" form="ngForm" [disabled]="!pickedEvent&&!isFinished">Dodaj wydarzenie</button>
+        </mat-dialog-actions>
+</div>
