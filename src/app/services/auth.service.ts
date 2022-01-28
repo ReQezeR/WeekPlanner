@@ -11,6 +11,17 @@ export class AuthService {
   public userObservable: Observable<SocialUser|null>;
 
   constructor(private socialAuthService: SocialAuthService) {
+    let localUser = localStorage.getItem('user');
+    if(localUser!=null){
+      let user = JSON.parse(localUser)
+
+      this.userSubject  = new BehaviorSubject<SocialUser|null>(user);
+      this.userObservable = this.userSubject.asObservable();
+    }
+    else{
+      this.userSubject = new BehaviorSubject<SocialUser|null>(null);
+      this.userObservable = this.userSubject.asObservable();
+    }
     this.userSubject = new BehaviorSubject<SocialUser|null>(null);
     this.userObservable = this.userSubject.asObservable();
   }

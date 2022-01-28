@@ -34,7 +34,7 @@ export class GoogleCalendarService {
 
   fetchCalendar(calendarId: string){
     let http_options = this.appendToken();
-    return this.http.get<any>('/google-api/users/me/calendarList/'+calendarId, http_options).pipe(map(data => {
+    return this.http.get<any>('/google-api/users/me/calendarList/'+encodeURIComponent(calendarId), http_options).pipe(map(data => {
       console.log("fetchCalendar status code:", data.status);
       console.log(data);
       return data;
@@ -44,7 +44,7 @@ export class GoogleCalendarService {
 
   fetchCalendarEvents(calendarId: string){
     let http_options = this.appendToken();
-    return this.http.get<any>('/google-api/calendars/'+calendarId+'/events', http_options).pipe(map(data => {
+    return this.http.get<any>('/google-api/calendars/'+encodeURIComponent(calendarId)+'/events', http_options).pipe(map(data => {
       console.log("fetchCalendarEvents status code:", data.status);
       console.log(data);
       return data;
@@ -53,7 +53,7 @@ export class GoogleCalendarService {
 
   fetchEvent(calendarId: string, eventId: string){
     let http_options = this.appendToken();
-    return this.http.get<any>('/google-api/calendars/'+calendarId+'/events/'+eventId, http_options).pipe(map(data => {
+    return this.http.get<any>('/google-api/calendars/'+encodeURIComponent(calendarId)+'/events/'+encodeURIComponent(eventId), http_options).pipe(map(data => {
       console.log("fetchEvent status code:", data.status);
       console.log(data);
       return data;
