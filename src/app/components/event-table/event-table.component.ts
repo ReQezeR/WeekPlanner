@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Day } from '@app/enums/day';
 import { AddEventComponent } from '@app/forms/add-event/add-event.component';
+import { AddGoogleEventComponent } from '@app/forms/add-google-event/add-google-event.component';
 import { CalendarEvent } from '@app/models';
 import { EventTableService } from '@app/services/event-table.service';
 
@@ -46,6 +47,14 @@ export class EventTableComponent implements OnInit {
 
   openGoogleCalendarEventFormDialog(day: string){
     console.log("open google calendar: "+day)
+    const dialogRef = this.dialog.open(AddGoogleEventComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result){
+        // console.log(`Dialog result:`+JSON.stringify(result));
+        this.addEvent(day, result);
+      }
+    });
   }
 
   openEventFormDialog(day: string) {
