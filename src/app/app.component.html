@@ -1,29 +1,9 @@
 <header>
-  <app-header></app-header>
+  <app-header [isPreview]=isPreview (tooglePreview)=displayPreview() (downloadPDF)=openPDF()></app-header>
 </header>
 
 <body>
-  <!-- <button type="button" (click)="getData()" class="btn btn-primary">Get data</button>
-
-  <button type="button" (click)="printUser()" class="btn btn-primary">print User</button>
-
-  <div *ngIf="user!=null">
-    <p>Hello, {{user.name}}!</p>
-    <p>Your email: {{user.email}}</p>
-  </div>
-
-  <p>{{toJSON(data)}}</p> -->
-
-
   <app-event-table id="htmlData" *ngIf="!isPreview"></app-event-table>
 
   <app-preview-event-table id="htmlData2" *ngIf="isPreview"></app-preview-event-table>
-
-  <div class="col-md-4 text-right">
-      <button class="btn btn-success btn-block" (click)="openPDF()">Download PDF</button>
-  </div>
-
-  <div class="col-md-4 text-right">
-    <button class="btn btn-success btn-block" (click)="displayPreview()">display Preview PDF</button>
-</div>
 </body>

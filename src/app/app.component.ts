@@ -65,7 +65,7 @@ export class AppComponent {
 
   data: CalendarList = new CalendarList({});
 
-  isPreview = true;
+  isPreview = false;
 
   constructor(
     private googleService: GoogleCalendarService,
@@ -131,7 +131,7 @@ export class AppComponent {
 
         console.log(width+" w; "+height+" h;");
 
-        let position = 25;
+        let position = 10;//TODO: set pos depending on canvas
         PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight)
         
         PDF.save('angular-demo.pdf');
