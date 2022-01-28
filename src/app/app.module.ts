@@ -16,6 +16,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatGridListModule } from '@angular/material/grid-list';
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {DragDropModule} from '@angular/cdk/drag-drop';
@@ -30,6 +32,7 @@ import { AddEventComponent } from './forms/add-event/add-event.component';
 import { EventCardComponent } from './components/event-card/event-card.component';
 import { EditEventComponent } from './forms/edit-event/edit-event.component';
 import { PreviewEventTableComponent } from './components/preview-event-table/preview-event-table.component';
+import { AddGoogleEventComponent } from './forms/add-google-event/add-google-event.component';
 
 
 const googleLoginOptions = {
@@ -46,6 +49,7 @@ const googleLoginOptions = {
     EventCardComponent,
     EditEventComponent,
     PreviewEventTableComponent,
+    AddGoogleEventComponent,
     
   ],
   imports: [
@@ -64,6 +68,8 @@ const googleLoginOptions = {
     MatFormFieldModule,
     MatMenuModule,
     MatGridListModule,
+    MatStepperModule,
+    MatCheckboxModule,
 
     FormsModule,
     ReactiveFormsModule,
