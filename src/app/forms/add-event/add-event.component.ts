@@ -29,6 +29,8 @@ export class AddEventComponent implements OnInit {
       this.eventUpdated.start = new Duration({'time': val.start});
       this.eventUpdated.end = new Duration({'time':val.end});
       this.eventUpdated.description = val.description;
+      this.eventUpdated.isDetailed = val.isDetailed;
+      this.eventUpdated.icon.color=val.color;
       if(!(JSON.stringify(this.event) === JSON.stringify(this.eventUpdated))){
         this.isEventDataUpdated = true;
       }
@@ -55,11 +57,17 @@ export class AddEventComponent implements OnInit {
     this.eventUpdated = new CalendarEvent({});
     this.form = this.formBuilder.group({
       summary: ['', Validators.required],
-      description: ['', Validators.required],
+      description: [''],
       start: ['', Validators.required],
-      end: ['', Validators.required]
+      end: ['', Validators.required],
+      color: [this.eventUpdated.icon.color, Validators.required],
+      isDetailed: [this.eventUpdated.isDetailed]
     });
     this.onChanges();
+  }
+
+  setCheckbox(event?: any){
+    this.form.controls.isDetailed.setValue(event.checked);
   }
 
 
