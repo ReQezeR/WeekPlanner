@@ -3,11 +3,23 @@ export class Duration {
     time: string;
     dateTime: string;
     timeZone: string;
-    constructor(object: any) {
+    constructor(object: any, isEnd?: boolean) {
         this.date = object?.date||"";
         this.time = object?.time||"";
         this.dateTime = object?.dateTime||"";
         this.timeZone = object?.timeZone||"";
+        if(isEnd!=null){
+            if(isEnd==true){
+                if(this.time==null || this.time==""){
+                    this.time = "23:59"
+                }
+            }
+            else{
+                if(this.time==null || this.time==""){
+                    this.time = "00:00"
+                }
+            }
+        }
     }
 
     getDate(){
