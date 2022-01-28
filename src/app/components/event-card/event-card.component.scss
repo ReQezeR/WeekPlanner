@@ -5,16 +5,17 @@
 
 mat-card {
   // display: flex;
-  flex-grow: 1;
-  min-width: 245px;
+  // flex-grow: 1;
+  min-width: 220px;
   // border: solid gray 1px;
   border-left: solid gray 5px;
   &.preview{
-    padding: 1rem;
+    min-width: 245px;
+    padding: 0.4rem;
     padding-right: 0.2rem;
     padding-left: 0;
     box-shadow: none;
-    border: solid gray 1px;
+    border: solid gray 2px;
     border-left: solid gray 5px;
   }
 }

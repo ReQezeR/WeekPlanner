@@ -1,22 +1,23 @@
 <mat-card class="example-box" [ngStyle]="{'border-left': 'solid 7px '+event.icon.color}" *ngIf="!isPreview">
-    <mat-grid-list cols="8">
-        <mat-grid-tile mat-card-title [colspan]="2" [rowspan]="1">
+    <mat-grid-list cols="8" rowHeight="1.2rem">
+        <mat-grid-tile mat-card-title [colspan]="2" [rowspan]="2">
             <mat-icon [ngStyle]="{'color': event.icon.color}">{{event.icon.name}}</mat-icon>
         </mat-grid-tile>
-        <!-- <mat-grid-tile mat-card-title [colspan]="2" [rowspan]="1">
-            <mat-icon style="color: seagreen;">event_note</mat-icon>
-        </mat-grid-tile> -->
-        <mat-grid-tile mat-card-title [colspan]="5" [rowspan]="1">
+        <mat-grid-tile mat-card-title [colspan]="5" [rowspan]="2">
             <div class="title">
                 {{event.summary}}
             </div> 
         </mat-grid-tile>
 
-        <mat-grid-tile [colspan]="1" [rowspan]="1">
+        <mat-grid-tile [colspan]="1" [rowspan]="2">
             <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
                 <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #menu="matMenu" xPosition="before">
+                <button mat-menu-item (click)="toogleIsDetailed()">
+                    <mat-icon>read_more</mat-icon>
+                    <span>Toogle Details</span>
+                </button>
                 <button mat-menu-item (click)="editEvent()">
                     <mat-icon>edit</mat-icon>
                     <span>Edit</span>
@@ -38,28 +39,49 @@
             </div>
         </mat-grid-tile> -->
 
-        <mat-grid-tile [colspan]="2" [rowspan]="1">
-            <div style="text-align: center; width: 100%; height: 100%; text-overflow: ellipsis;">
-                {{event?.start?.time}}
+        <div *ngIf="event.isDetailed">
+            <div *ngIf="event?.description">
+                <mat-grid-tile [colspan]="2" [rowspan]="1">
+                    <div style="text-align: center; width: 100%; height: 100%; text-overflow: ellipsis;">
+                        {{event?.start?.time}}
+                    </div>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="6" [rowspan]="4">
+                    <div style="text-align: left; width: 100%; height: 100%; text-overflow: ellipsis;">
+                        {{event.description}}
+                        <!-- Lorem ipsum dolor sit amet consectetur adipisicing elit. -->
+                    </div>
+                </mat-grid-tile>    
+                <mat-grid-tile [colspan]="2" [rowspan]="1">
+                    <div style="text-align: center; width: 100%; height: 100%; text-overflow: ellipsis;">
+                        {{"|"}} 
+                    </div>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="2" [rowspan]="2">
+                    <div style="text-align: center; width: 100%; height: 100%; text-overflow: ellipsis;">
+                        {{event?.end?.time}}
+                    </div>
+                </mat-grid-tile>
             </div>
-        </mat-grid-tile>
-        <mat-grid-tile [colspan]="6" [rowspan]="3">
-            <div style="text-align: left; width: 100%; height: 100%; text-overflow: ellipsis;">
-                {{event.description}}
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            </div>
-        </mat-grid-tile>
 
-        <mat-grid-tile [colspan]="2" [rowspan]="1">
-            <div style="text-align: center; width: 100%; height: 100%; text-overflow: ellipsis;">
-                {{"|"}} 
+            <div *ngIf="!event?.description">
+                <mat-grid-tile [colspan]="3" [rowspan]="2">
+                    <div style="display: flex; text-align: center; justify-content: center; align-items: center; width: 100%; height: 100%; text-overflow: ellipsis;">
+                        {{event?.start?.time}}
+                    </div>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="2" [rowspan]="2">
+                    <div style="display: flex; text-align: center; justify-content: center; align-items: center; width: 100%; height: 100%; text-overflow: ellipsis;">
+                        {{"\<\-\>"}} 
+                    </div>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="3" [rowspan]="2">
+                    <div style="display: flex; text-align: center; justify-content: center; align-items: center; width: 100%; height: 100%; text-overflow: ellipsis;">
+                        {{event?.end?.time}}
+                    </div>
+                </mat-grid-tile>
             </div>
-        </mat-grid-tile>
-        <mat-grid-tile [colspan]="2" [rowspan]="1">
-            <div style="text-align: center; width: 100%; height: 100%; text-overflow: ellipsis;">
-                {{event?.end?.time}}
-            </div>
-        </mat-grid-tile>
+        </div>
     </mat-grid-list>
 </mat-card>
 
@@ -67,40 +89,60 @@
 
 <mat-card class="preview" [ngStyle]="{'border-left': 'solid 7px '+event.icon.color}"  *ngIf="isPreview">
     <mat-grid-list cols="8">
-        <mat-grid-tile mat-card-title [colspan]="2" [rowspan]="1" *ngIf="event.icon!=null">
+        <mat-grid-tile mat-card-title [colspan]="2" [rowspan]="2" *ngIf="event.icon!=null">
             <mat-icon [ngStyle]="{'color': event.icon.color}">{{event.icon.name}}</mat-icon>
         </mat-grid-tile>
-        <!-- <mat-grid-tile mat-card-title [colspan]="2" [rowspan]="1" *ngIf="event.icon==null">
-            <mat-icon style="color:seagreen">event_note</mat-icon>
-        </mat-grid-tile> -->
-        <mat-grid-tile mat-card-title [colspan]="6" [rowspan]="1">
+        <mat-grid-tile mat-card-title [colspan]="6" [rowspan]="2">
             <div class="title">
                 {{event.summary}}
             </div> 
         </mat-grid-tile>
 
-        <mat-grid-tile [colspan]="2" [rowspan]="1">
-            <div style="text-align: center; width: 100%; height: 100%; text-overflow: ellipsis;">
-                {{event?.start?.time}}
+        <div *ngIf="event.isDetailed">
+            <div *ngIf="event?.description">
+                <mat-grid-tile [colspan]="2" [rowspan]="1">
+                    <div style="text-align: center; width: 100%; height: 100%; text-overflow: ellipsis;">
+                        {{event?.start?.time}}
+                    </div>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="6" [rowspan]="3">
+                    <div style="text-align: left; width: 100%; height: 100%; text-overflow: ellipsis;">
+                        {{event.description}}
+                        <!-- Lorem ipsum dolor sit amet consectetur adipisicing elit. -->
+                    </div>
+                </mat-grid-tile>
+        
+                <mat-grid-tile [colspan]="2" [rowspan]="1">
+                    <div style="text-align: center; width: 100%; height: 100%; text-overflow: ellipsis;">
+                        {{"|"}} 
+                    </div>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="2" [rowspan]="1">
+                    <div style="text-align: center; width: 100%; height: 100%; text-overflow: ellipsis;">
+                        {{event?.end?.time}}
+                    </div>
+                </mat-grid-tile>
             </div>
-        </mat-grid-tile>
-        <mat-grid-tile [colspan]="6" [rowspan]="3">
-            <div style="text-align: left; width: 100%; height: 100%; text-overflow: ellipsis;">
-                {{event.description}}
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            </div>
-        </mat-grid-tile>
+            
 
-        <mat-grid-tile [colspan]="2" [rowspan]="1">
-            <div style="text-align: center; width: 100%; height: 100%; text-overflow: ellipsis;">
-                {{"|"}} 
+            <div *ngIf="!event?.description">
+                <mat-grid-tile [colspan]="3" [rowspan]="1">
+                    <div style="display: flex; text-align: center; justify-content: center; align-items: center;width: 100%; height: 100%; text-overflow: ellipsis;">
+                        {{event?.start?.time}}
+                    </div>
+                </mat-grid-tile> 
+                <mat-grid-tile [colspan]="2" [rowspan]="1">
+                    <div style="display: flex; text-align: center; justify-content: center; align-items: center; width: 100%; height: 100%; text-overflow: ellipsis;">
+                        {{"\<\-\>"}} 
+                    </div>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="3" [rowspan]="1">
+                    <div style="display: flex; text-align: center; justify-content: center; align-items: center; width: 100%; height: 100%; text-overflow: ellipsis;">
+                        {{event?.end?.time}}
+                    </div>
+                </mat-grid-tile>
             </div>
-        </mat-grid-tile>
-        <mat-grid-tile [colspan]="2" [rowspan]="1">
-            <div style="text-align: center; width: 100%; height: 100%; text-overflow: ellipsis;">
-                {{event?.end?.time}}
-            </div>
-        </mat-grid-tile>
+        </div>
     </mat-grid-list>
 </mat-card>
 
