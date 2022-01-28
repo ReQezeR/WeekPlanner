@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AuthService } from '@app/services/auth.service';
 import { SocialUser } from 'angularx-social-login';
 
@@ -8,21 +8,13 @@ import { SocialUser } from 'angularx-social-login';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  user: SocialUser|null = null;
-  constructor(private authService: AuthService) {}
+  @Input() isPreview: boolean = false;
+  @Output() public tooglePreview: EventEmitter<any> = new EventEmitter<any>();
+  @Output() public downloadPDF: EventEmitter<any> = new EventEmitter<any>();
+
+
+  constructor() {}
 
   ngOnInit() {
-    this.authService.userObservable.subscribe(user => {
-      this.user = user;
-    });
-  }
-
-  login(): void {
-    //google auth
-    this.authService.login();
-  }
-
-  logout(): void {
-    this.authService.logout();
   }
 }
