@@ -30,7 +30,7 @@
                   <form [formGroup]="secondFormGroup">
 
                     <mat-form-field appearance="fill">
-                        <mat-label>Kalendarz</mat-label>
+                        <mat-label>Wydarzenie</mat-label>
                         <mat-select formControlName="pickEvent">
                             <mat-option *ngFor="let event of events" [value]="event">
                                 {{event.summary}}
